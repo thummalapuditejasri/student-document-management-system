@@ -1,0 +1,65 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Document Management</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #eef2f7;
+            text-align: center;
+            padding: 40px;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            max-width: 600px;
+            margin: auto;
+            border-radius: 12px;
+        }
+        button {
+            background: #2563eb;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+        li {
+            margin: 15px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+
+    <h1>Student Document Management System</h1>
+    <p>Upload and manage your documents</p>
+
+    {% for message in get_flashed_messages() %}
+        <p>{{ message }}</p>
+    {% endfor %}
+
+    <form action="/upload" method="POST"
+          enctype="multipart/form-data">
+        <input type="file" name="document" required>
+        <button type="submit">Upload Document</button>
+    </form>
+
+    <h2>Uploaded Documents</h2>
+
+    <ul>
+    {% for doc in documents %}
+        <li>
+            {{ doc }}
+            <a href="{{ url_for('download', filename=doc) }}">
+                Download
+            </a>
+        </li>
+    {% else %}
+        <p>No documents uploaded yet.</p>
+    {% endfor %}
+    </ul>
+
+</div>
+</body>
+</html>
